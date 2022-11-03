@@ -36,8 +36,8 @@ a{
 .pergunta {
     display: flex;
     flex-direction: column;
-    width: 676px;
-    height: 759px;
+    width: 759px;
+    height: 676px;
     background-color: blue;
     margin-top: 42px;
     padding-right: 3%;
@@ -59,8 +59,7 @@ a{
 }
 .todasrespostas {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;    
+    flex-wrap: wrap;  
     justify-content: flex-start;
     align-items: flex-start;
 }
