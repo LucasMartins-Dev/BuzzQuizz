@@ -69,6 +69,9 @@ a{
     background-color: white;
     width: 330px;
     height: 175px;
+    margin-left: 20px;
+    margin-top: 36px;
+    box-sizing: border-box;
 }
 
 @media (max-width: 375px) {
