@@ -15,7 +15,7 @@
     <a href="listadequiz.html"><div class="topo">
         BuzzQuizz
     </div></a> 
-   <div class="criar-inicio">
+   <div class="criar-inicio exibir">
       <div class="tittle">Comece pelo começo</div>
       <div class="info-iniciais">
         <input type="text" placeholder="Título do seu quizz">
@@ -23,7 +23,7 @@
         <input type="text" placeholder="Quantidade de perguntas do quizz">
         <input type="text" placeholder="Quantidade de níveis do quizz">
       </div>
-      <div class="button">Prosseguir pra criar perguntas</div>
+      <div class="button"onclick="criarperguntas()">Prosseguir pra criar perguntas</div>
    </div>
     <div class="criar-perguntas">
       <div class="tittle">Crie suas perguntas</div>
@@ -64,7 +64,7 @@
         <h1>Pergunta 3</h1>
         <img src="icon.svg">
       </div>
-      <div class="button">Prosseguir pra criar niveis</div>
+      <div class="button" onclick="criarniveis()">Prosseguir pra criar niveis</div>
     </div>
     <div class="criar-niveis">
       <div class="tittle">Comece pelo começo</div>
@@ -83,7 +83,7 @@
         <h1>Nivel 3</h1>
         <img src="icon.svg">
       </div>
-      <div class="button">Finalizar Quizz</div>
+      <div class="button" onclick="finalizarquizz()">Finalizar Quizz</div>
    </div>
    <div class="finalizar-quizz">
     <div class="tittle">Seu quizz está pronto!</div>
@@ -91,7 +91,7 @@
       Acerte os personagens corretos dos Simpsons e prove seu amor!
   </div>
     <div class="button">Acessar Quizz</div>
-    <h2>Voltar pra home</h2>
+    <a href="listadequiz.html"><h2>Voltar pra home</h2></a>
    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
