@@ -9,37 +9,39 @@ function criarperguntas(){
 	console.log(numerodeperguntas)
     let começo = document.querySelector('.criar-inicio')
     começo.classList.remove('exibir')
+
 for(let i=0; i<numerodeperguntas;i++){
 	const per = document.querySelector('.criar-perguntas')
 	per.innerHTML += `
 <div class="pergunta-01"id="p${i+1}">
 <div class="pergunta">
   <h1>Pergunta ${i+1}</h1>
-  <input type="text" placeholder="Texto da pergunta">
-  <div class ="color">
+  <input id="text-p${i}"type="text" placeholder="Texto da pergunta">
+  <div class ="color"id="${i}">
   <input type="text" placeholder="Cor de fundo da pergunta">
   <input type="color" placeholder="Cor de fundo da pergunta">
+  <div onclick= "declararcor()">OK</div>
   </div>
   
 </div>
 <div class="correta-01">
   <h1>Resposta correta</h1>
-  <input type="text" placeholder="Resposta correta">
-  <input type="text" placeholder="URL da imagem">
+  <input id="resposta-correta${i}"type="text" placeholder="Resposta correta">
+  <input id="url-correta${i}"type="text" placeholder="URL da imagem">
 </div>
 <div class="incorretas-01">
   <div class="incorreta-01">
 	<h1>Respostas incorretas</h1>
-	<input type="text" placeholder="Resposta incorreta 1">
-	<input type="text" placeholder="URL da imagem 1">
+	<input id="resposta1-incorreta${i}" type="text" placeholder="Resposta incorreta 1">
+	<input id="url1-incorreta${i}"type="text" placeholder="URL da imagem 1">
   </div>
   <div class="incorreta-02">
-	<input type="text" placeholder="Resposta incorreta 2">
-  <input type="text" placeholder="URL da imagem 2">
+	<input id="resposta2-incorreta${i}" type="text" placeholder="Resposta incorreta 2">
+  <input id="url2-incorreta${i}"type="text" placeholder="URL da imagem 2">
   </div>
   <div class="incorreta-03">
-	<input type="text" placeholder="Resposta incorreta 3">
-  <input type="text" placeholder="URL da imagem 3">
+	<input id="resposta3-incorreta${i}" type="text" placeholder="Resposta incorreta 3">
+  <input id="url3-incorreta${i}"type="text" placeholder="URL da imagem 3">
   </div>
   
 </div>
@@ -47,6 +49,8 @@ for(let i=0; i<numerodeperguntas;i++){
 </div>
 `
 }
+
+
 const per = document.querySelector('.criar-perguntas')
 per.innerHTML +=`
 <div class="button" onclick="criarniveis()">Prosseguir pra criar niveis</div>
@@ -55,15 +59,62 @@ per.innerHTML +=`
     let pergunta = document.querySelector('.criar-perguntas')
     pergunta.classList.add('exibir')
 	declararcor()
+	
 }
 function declararcor(){
-	let teste = document.querySelector('.color')
+	for(i=0;i<numerodeperguntas;i++){
+		let teste = document.getElementById(i)
 	console.log(teste.children[1].value)
-	teste.children[0].value = teste.children[1].value
+	teste.children[0].value = teste.children[1].value	
+	}
+	
 }
-setInterval(declararcor,1000)
+
 
 function criarniveis(){
+	
+	let txt_pergunta = []
+	let color_pergunta = []
+	let correct_txt = []
+	let correct_img = []
+	let incorrect1_txt = []
+	let incorrect1_img = []
+	let incorrect2_txt = []
+	let incorrect2_img = []
+	let incorrect3_txt = []
+	let incorrect3_img = []
+	for(i=0;i<numerodeperguntas;i++){
+		 txt_pergunta[i]=document.getElementById('text-p'+i)
+		 txt_pergunta[i]=txt_pergunta[i].value
+		 console.log(txt_pergunta)
+		 color_pergunta[i]=document.getElementById(i)
+		 color_pergunta[i] = color_pergunta[i].children[0].value
+		 console.log(color_pergunta)
+		 correct_txt[i]=document.getElementById('resposta-correta'+i)
+		 correct_txt[i]=correct_txt[i].value
+		 console.log(correct_txt)
+		 correct_img[i]=document.getElementById('url-correta'+i)
+		 correct_img[i]= correct_img[i].value
+		 console.log(correct_img)
+		 incorrect1_txt[i]=document.getElementById('resposta1-incorreta'+i)
+		 incorrect1_txt[i]=incorrect1_txt[i].value
+		 console.log(incorrect1_txt)
+		 incorrect1_img[i]=document.getElementById('url1-incorreta'+i)
+		 incorrect1_img[i]= incorrect1_img[i].value
+		 console.log(incorrect1_img)
+		 incorrect2_txt[i]=document.getElementById('resposta2-incorreta'+i)
+		 incorrect2_txt[i]=incorrect2_txt[i].value
+		 console.log(incorrect2_txt)
+		 incorrect2_img[i]=document.getElementById('url2-incorreta'+i)
+		 incorrect2_img[i]=incorrect2_img[i].value
+		 console.log(incorrect2_img)
+		 incorrect3_txt[i]=document.getElementById('resposta3-incorreta'+i)
+		 incorrect3_txt[i]= incorrect3_txt[i].value
+		 console.log(incorrect3_txt)
+		 incorrect3_img[i]=document.getElementById('url3-incorreta'+i)
+		 incorrect3_img[i]= incorrect3_img[i].value
+		 console.log(incorrect3_img)
+	}
     let perguntas = document.querySelector('.criar-perguntas')
     perguntas.classList.remove('exibir')
     let niveis = document.querySelector('.criar-niveis')
@@ -76,6 +127,12 @@ function finalizarquizz(){
     let finalizar = document.querySelector('.finalizar-quizz')
     finalizar.classList.add('exibir')
 }
+
+
+
+
+
+
 
 
 
@@ -145,8 +202,6 @@ perguntas = perguntas + pergunta
 	]
 } `
 
-console.log(exemplo)
-console.log(texto)
-console.log(imagem)
+
 
 
