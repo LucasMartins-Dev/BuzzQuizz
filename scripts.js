@@ -15,27 +15,31 @@ for(let i=0; i<numerodeperguntas;i++){
 <div class="pergunta-01"id="p${i+1}">
 <div class="pergunta">
   <h1>Pergunta ${i+1}</h1>
-  <input type="text" placeholder="Título do seu quizz">
-  <input type="text" placeholder="URL da imagem do seu quizz">
+  <input type="text" placeholder="Texto da pergunta">
+  <div class ="color">
+  <input type="text" placeholder="Cor de fundo da pergunta">
+  <input type="color" placeholder="Cor de fundo da pergunta">
+  </div>
+  
 </div>
 <div class="correta-01">
   <h1>Resposta correta</h1>
-  <input type="text" placeholder="Título do seu quizz">
-  <input type="text" placeholder="URL da imagem do seu quizz">
+  <input type="text" placeholder="Resposta correta">
+  <input type="text" placeholder="URL da imagem">
 </div>
 <div class="incorretas-01">
   <div class="incorreta-01">
 	<h1>Respostas incorretas</h1>
-	<input type="text" placeholder="Título do seu quizz">
-	<input type="text" placeholder="URL da imagem do seu quizz">
+	<input type="text" placeholder="Resposta incorreta 1">
+	<input type="text" placeholder="URL da imagem 1">
   </div>
   <div class="incorreta-02">
-	<input type="text" placeholder="Título do seu quizz">
-  <input type="text" placeholder="URL da imagem do seu quizz">
+	<input type="text" placeholder="Resposta incorreta 2">
+  <input type="text" placeholder="URL da imagem 2">
   </div>
   <div class="incorreta-03">
-	<input type="text" placeholder="Título do seu quizz">
-  <input type="text" placeholder="URL da imagem do seu quizz">
+	<input type="text" placeholder="Resposta incorreta 3">
+  <input type="text" placeholder="URL da imagem 3">
   </div>
   
 </div>
@@ -50,8 +54,14 @@ per.innerHTML +=`
 
     let pergunta = document.querySelector('.criar-perguntas')
     pergunta.classList.add('exibir')
-
+	declararcor()
 }
+function declararcor(){
+	let teste = document.querySelector('.color')
+	console.log(teste.children[1].value)
+	teste.children[0].value = teste.children[1].value
+}
+setInterval(declararcor,1000)
 
 function criarniveis(){
     let perguntas = document.querySelector('.criar-perguntas')
@@ -138,4 +148,5 @@ perguntas = perguntas + pergunta
 console.log(exemplo)
 console.log(texto)
 console.log(imagem)
+
 

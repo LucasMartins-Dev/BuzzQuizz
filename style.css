@@ -180,4 +180,14 @@ img{
 .exibir{
     display: flex;
 }
-
+.color{
+    display: flex;  
+}
+.color :nth-child(1){
+    width: 500px;
+}
+.color :nth-child(2){
+    width: 65px;
+    margin: 0;
+    padding: 0;
+}
