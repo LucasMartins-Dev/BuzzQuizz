@@ -1,6 +1,7 @@
 let score = 0;
 let d = 0;
 let numdeperg, container, acerto, totalperg, dataquiz, f;
+let j = 1;
 pegarQuiz();
 function pegarQuiz(){
     const pegando = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/2");
@@ -25,7 +26,7 @@ function exibirQuiz(quiz) {
             let perguntas = document.getElementById(b);
             perguntas.innerHTML += `
             <div class="respostas p${quiz.data.questions[b].answers[i].isCorrectAnswer}" onclick="escolherResposta(${quiz.data.questions[b].answers[i].isCorrectAnswer}, this)">
-            <img src="${quiz.data.questions[b].answers[i].image}" width="330px" height="175px">
+            <img src="${quiz.data.questions[b].answers[i].image}" class="imagemdasresp">
             <p class=""> ${quiz.data.questions[b].answers[i].text} </p>
             </div>
             `;
@@ -58,6 +59,10 @@ function escolherResposta(certoerrado, respostaclickada) {
         
         
     } 
+    let proxima = document.querySelectorAll(".todasrespostas");
+    proxima[j].parentElement.scrollIntoView();
+    j++
+    
 }
 }
 function reiniciarQuiz() {
@@ -70,6 +75,7 @@ function voltarHome() {
 function gerarResultados() {
     console.log(acerto);
     console.log(dataquiz.levels.length);
+    
     for (let i = 1; i < dataquiz.levels.length; i++) {
         if (acerto >= dataquiz.levels[i].minValue) {
             d++;
@@ -85,4 +91,7 @@ function gerarResultados() {
         </div>
         <div class="reiniciar" onclick="reiniciarQuiz()"><p>Reiniciar Quizz</p></div>
         <div class="voltarhome" onclick="voltarHome()"><p>Voltar para home</p></div> `;
+
+    const resultadoscrollintoview = document.querySelector(".resultado");
+    resultadoscrollintoview.scrollIntoView();
 }

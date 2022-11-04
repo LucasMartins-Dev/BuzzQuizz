@@ -40,9 +40,9 @@ a{
     width: 759px;
     background-color: #FFFFFF;
     margin-top: 42px;
-    padding-right: 3%;
-    padding-left: 3%;
-    padding-top: 2%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 18px;
     box-sizing: border-box;
 }
 .textopergunta {
@@ -118,7 +118,10 @@ a{
     line-height: 27px;
     color: white;
 }
-
+.imagemdasresp {
+    width: 330px; 
+    height: 175px;
+}
 .mensagemresultado {
     width: 364px;
    height: 273px;
@@ -165,10 +168,61 @@ a{
 .selecionada {
     opacity: 1;
 }
-@media (max-width: 375px) {
+@media (max-width: 1100px) {
 .mainimgquiz{
     height: 142px;
 
+}
+.imagemdasresp {
+    width: 100%; 
+    height: 100%;
+}
+.pergunta {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+    box-sizing: border-box;
+    margin-top: 0px;
+    
+}
+
+.respostas {
+    display: flex;
+    width: 46%;
+    height: 35%;
+    box-sizing: border-box;
+}
+.mensagemresultado {
+    width: 100%;
+    height: auto;  
+    margin-top: 18px;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 25px;
+}
+.resultado {
+    width: 100%;
+    height: auto;
+}
+.resultado2 {
+    flex-direction: column;
+}
+.tituloresultado {
+    width: 100%;
+    height: 100px;
+}
+.imgresultado {
+    width: 100%;
+    height: auto;
+    margin-right: 0px;
+}
+.todasrespostas {
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
 }
 
 }
