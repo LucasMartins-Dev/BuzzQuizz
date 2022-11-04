@@ -1,37 +1,88 @@
-
-
+let score = 0;
+let d = 0;
+let numdeperg, container, acerto, totalperg, dataquiz, f;
 pegarQuiz();
-
 function pegarQuiz(){
-    const pegando = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/1");
+    const pegando = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/2");
     pegando.then(exibirQuiz);
 }
-
 function exibirQuiz(quiz) {
     console.log(quiz.data);
+    container = document.querySelector(".containerquiz");
+    container.innerHTML += `<img src="${quiz.data.image}" class="mainimgquiz">`;
+    numdeperg = quiz.data.questions.length;
+    dataquiz = quiz.data;
+    
 
-    //perguntas.innerHTML = "";
-    let container = document.querySelector(".containerquiz");
-    container.innerHTML += `<img src="${quiz.data.imagem}" class="mainimgquiz">`;
     for(let b = 0; b < quiz.data.questions.length ; b++) {
     container.innerHTML += `
     <div class="pergunta">
-    <div class="textopergunta">
+    <div class="textopergunta" style="background-color:${quiz.data.questions[b].color}">
     <p>${quiz.data.questions[b].title}</p>
     </div><div class="todasrespostas" id="${b}">
     </div></div>`;
         for(let i = 0; i < quiz.data.questions[b].answers.length ; i++){ 
             let perguntas = document.getElementById(b);
             perguntas.innerHTML += `
-            <div class="respostas">
+            <div class="respostas p${quiz.data.questions[b].answers[i].isCorrectAnswer}" onclick="escolherResposta(${quiz.data.questions[b].answers[i].isCorrectAnswer}, this)">
             <img src="${quiz.data.questions[b].answers[i].image}" width="330px" height="175px">
             <p class=""> ${quiz.data.questions[b].answers[i].text} </p>
             </div>
             `;
     }
     for(let a = 0; a < quiz.data.levels.length ; a++){}
-
  }
 }
+function escolherResposta(certoerrado, respostaclickada) {
+    if(respostaclickada.parentElement.classList.value === "todasrespostas jaescolheu"){
+        alert("você já respondeu  essa pergunta");
+    }
+    else {
+    console.log(respostaclickada.parentElement.classList.value);
+    let parent = respostaclickada.parentElement;
+    respostaclickada.classList.add("selecionada");
+    parent.classList.add("jaescolheu");  
+    
+    
+    for(let c = 0; c < parent.children.length; c++){
+        parent.children[c].classList.add("opaco");
+    }
+    if(certoerrado === true){
+        score++;
+    }
+    if(document.querySelectorAll(".jaescolheu").length === numdeperg){
+        //alert("voce respondeu todas as perguntas");
+        acerto = score / numdeperg;
+        acerto = Math.round(acerto * 100);
+        setTimeout(gerarResultados, 1000);
+        
+        
+    } 
+}
+}
+function reiniciarQuiz() {
+    window.location.reload();
+}
+function voltarHome() {
+    alert("voltou pra home");
+}
 
-
+function gerarResultados() {
+    console.log(acerto);
+    console.log(dataquiz.levels.length);
+    for (let i = 1; i < dataquiz.levels.length; i++) {
+        if (acerto >= dataquiz.levels[i].minValue) {
+            d++;
+            
+        }
+    }
+    container.innerHTML += `<div class="resultado">
+            <div class="tituloresultado"><p>${acerto}% de acertos: ${dataquiz.levels[d].title}</p></div>
+            <div class="resultado2">
+                <img class="imgresultado" src="${dataquiz.levels[d].image}">
+                <div class="mensagemresultado">${dataquiz.levels[d].text}</div>
+            </div>
+        </div>
+        <div class="reiniciar" onclick="reiniciarQuiz()"><p>Reiniciar Quizz</p></div>
+        <div class="voltarhome" onclick="voltarHome()"><p>Voltar para home</p></div> `;
+}
