@@ -2,10 +2,17 @@ let respostas =[]
 let texto = []
 let imagem = []
 let perguntas =``
+let titulodoquizz;
+let urlimagemdoquizz;
 let numerodeperguntas;
+let numerodeniveis;
+
 
 function criarperguntas(){
+	titulodoquizz = document.querySelector('.tituloquizz').value
+	urlimagemdoquizz = document.querySelector('.urlquizz').value
 	numerodeperguntas = document.querySelector('.qtdperguntas').value
+	numerodeniveis = document.querySelector('.qtdniveis').value
 	console.log(numerodeperguntas)
     let começo = document.querySelector('.criar-inicio')
     começo.classList.remove('exibir')
@@ -70,10 +77,7 @@ function declararcor(){
 	
 }
 
-
-function criarniveis(){
-	
-	let txt_pergunta = []
+let txt_pergunta = []
 	let color_pergunta = []
 	let correct_txt = []
 	let correct_img = []
@@ -83,6 +87,9 @@ function criarniveis(){
 	let incorrect2_img = []
 	let incorrect3_txt = []
 	let incorrect3_img = []
+function criarniveis(){
+	
+	
 	for(i=0;i<numerodeperguntas;i++){
 		 txt_pergunta[i]=document.getElementById('text-p'+i)
 		 txt_pergunta[i]=txt_pergunta[i].value
@@ -115,6 +122,8 @@ function criarniveis(){
 		 incorrect3_img[i]= incorrect3_img[i].value
 		 console.log(incorrect3_img)
 	}
+	cadastrarquizz()
+	gerarexemplo()
     let perguntas = document.querySelector('.criar-perguntas')
     perguntas.classList.remove('exibir')
     let niveis = document.querySelector('.criar-niveis')
@@ -137,71 +146,98 @@ function finalizarquizz(){
 
 
 
+function cadastrarquizz(){
+	
 
-for(i=1 ; i<=numerodeperguntas;i++){
+	for(i=0; i<numerodeperguntas;i++){
+	
 
-	let addcorreta = `
-			{   
-				text: 1,
-				image: 1,
-				isCorrectAnswer: true
-			}           
+		let addcorreta = `
+				{   
+					text: ${correct_txt[i]},
+					image: ${correct_img[i]},
+					isCorrectAnswer: true
+				}           
+		`
+		respostas[i] = addcorreta
+		
+			if(incorrect1_txt[i] !== ''&& incorrect1_img[i]!==''){
+				let adderradas = `
+				{   
+					text: ${incorrect1_txt[i]},
+					image: ${incorrect1_img[i]},
+					isCorrectAnswer: false
+				}           
+		`
+		respostas[i] = respostas[i]+ adderradas
+			}
+			if(incorrect2_txt[i] !== ''&& incorrect2_img[i]!==''){
+				let adderradas2 = `
+				{   
+					text: ${incorrect2_txt[i]},
+					image: ${incorrect2_img[i]},
+					isCorrectAnswer: false
+				}           
+		`
+		respostas[i] = respostas[i]+ adderradas2
+			}
+			if(incorrect3_txt[i] !== ''&& incorrect3_img[i]!==''){
+				let adderradas3 = `
+				{   
+					text: ${incorrect3_txt[i]},
+					image: ${incorrect3_img[i]},
+					isCorrectAnswer: false
+				}           
+		`
+		respostas[i] = respostas[i]+ adderradas3
+			}
+		
+	
+		let pergunta =`
+			{
+				title: ${txt_pergunta[i]},
+				color: ${color_pergunta[i]},
+				answers: [
+					${respostas[i]} 
+				]
+			},
 	`
-	respostas[i] = respostas[i]+ addcorreta
-	for(j=2 ; j<5;j++){
-		texto[j]= j;
-		imagem [j]= j+1;
-		if(texto !== ''&& imagem !==''){
-			let adderradas = `
-			{   
-				text: ${texto[j]},
-				image: ${imagem[j]},
-				isCorrectAnswer: false
-			}           
-	`
-	respostas[i] = respostas[i]+ adderradas
-		}
+	perguntas = perguntas + pergunta
 	}
-
-	let pergunta =`
-		{
-			title: "Título da pergunta ${i}",
-			color: "#123456",
-			answers: [
-				${respostas[i]} 
-			]
-		},S
-`
-perguntas = perguntas + pergunta
+	console.log(perguntas)
 }
 
 
 
-				
- let exemplo = `
+function gerarexemplo(){
+	let exemplo = `
  
- {
-	title: "Título do quizz",
-	image: "https://http.cat/411.jpg",
-	questions: [
-		${perguntas}
-	],
-	levels: [
-		{
-			title: "Título do nível 1",
-			image: "https://http.cat/411.jpg",
-			text: "Descrição do nível 1",
-			minValue: 0
-		},
-		{
-			title: "Título do nível 2",
-			image: "https://http.cat/412.jpg",
-			text: "Descrição do nível 2",
-			minValue: 50
-		}
-	]
-} `
-
-
-
-
+	{
+	   title: ${titulodoquizz},
+	   image: ${urlimagemdoquizz},
+	   questions: [
+		   ${perguntas}
+	   ],
+	   levels: [
+		   {
+			   title: "Título do nível 1",
+			   image: "https://http.cat/411.jpg",
+			   text: "Descrição do nível 1",
+			   minValue: 0
+		   },
+		   {
+			   title: "Título do nível 2",
+			   image: "https://http.cat/412.jpg",
+			   text: "Descrição do nível 2",
+			   minValue: 50
+		   }
+	   ]
+   } `
+   
+   
+   console.log(exemplo)
+   
+   
+}
+				
+ 
