@@ -204,7 +204,7 @@ function cadastrarquizz(){
 	`
 	perguntas = perguntas + pergunta
 	}
-	console.log(perguntas)
+	
 }
 
 
