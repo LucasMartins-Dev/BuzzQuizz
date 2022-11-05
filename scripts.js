@@ -35,6 +35,14 @@ function criarperguntas(){
 		alert('Titulo de 20 a 65 caracteres')
 	}
 	urlimagemdoquizz = document.querySelector('.urlquizz').value
+
+	let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+
+if(regex.test(urlimagemdoquizz)){
+	cont++
+}else{
+  alert('Url incorreta')
+}
 	numerodeperguntas = document.querySelector('.qtdperguntas').value
 	if(numerodeperguntas>=3){
 		cont++
@@ -47,7 +55,7 @@ function criarperguntas(){
 	}else{
 		alert('No minimo 2 niveis')
 	}
-	if(cont === 3){  
+	if(cont === 4){  
 for(let i=0; i<numerodeperguntas;i++){
 	const per = document.querySelector('.criar-perguntas')
 	per.innerHTML += `
@@ -56,8 +64,8 @@ for(let i=0; i<numerodeperguntas;i++){
   <h1>Pergunta ${i+1}</h1>
   <input id="text-p${i}"type="text" placeholder="Texto da pergunta">
   <div class ="color"id="${i}">
-  <input type="text" placeholder="Cor de fundo da pergunta">
-  <input type="color" placeholder="Cor de fundo da pergunta">
+  <input type="text" placeholder="Cor de fundo da pergunta"disabled ="">
+  <input type="color">
   <div onclick= "declararcor()">OK</div>
   </div>
   
@@ -114,6 +122,7 @@ function declararcor(){
 
 function criarniveis(){
 	let conti = 0;
+	let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 	
 	for(i=0;i<numerodeperguntas;i++){
 		 txt_pergunta[i]=document.getElementById('text-p'+i)
@@ -121,7 +130,7 @@ function criarniveis(){
 		 if(txt_pergunta[i].length >= 20){
 			conti++
 		}else{
-			alert('Titulo de 20 a 65 caracteres')
+			alert('Titulo da pergunta'+i+' de 20 a 65 caracteres')
 		}
 		 color_pergunta[i]=document.getElementById(i)
 		 color_pergunta[i] = color_pergunta[i].children[0].value
@@ -131,30 +140,50 @@ function criarniveis(){
 		 if(correct_txt[i] !== ''){
 			conti++
 		}else{
-			alert('Preencha a resposta correta')
+			alert('Texto da pergunta'+(i+1)+'-resposta correta estão errados.')
 		}
 		 correct_img[i]=document.getElementById('url-correta'+i)
 		 correct_img[i]= correct_img[i].value
+		 if(regex.test(correct_img[i])){
+			conti++
+		}else{
+		  alert('Url da pergunta'+(i+1)+'-resposta correta estão errados.')
+		}
 		 incorrect1_txt[i]=document.getElementById('resposta1-incorreta'+i)
 		 incorrect1_txt[i]=incorrect1_txt[i].value
 		 if(incorrect1_txt[i] !== ''){
 			conti++
 		}else{
-			alert('Preencha a resposta incorreta')
+			alert('Texto da pergunta'+(i+1)+'-resposta incorreta1 estão errados.')
 		}
 		 incorrect1_img[i]=document.getElementById('url1-incorreta'+i)
 		 incorrect1_img[i]= incorrect1_img[i].value
+		 if(regex.test(incorrect1_img[i])){
+			conti++
+		}else{
+		  alert('Url da pergunta'+(i+1)+'-resposta incorreta1 estão errados.')
+		}
 		 incorrect2_txt[i]=document.getElementById('resposta2-incorreta'+i)
 		 incorrect2_txt[i]=incorrect2_txt[i].value
 		 incorrect2_img[i]=document.getElementById('url2-incorreta'+i)
 		 incorrect2_img[i]=incorrect2_img[i].value
+		 if(regex.test(incorrect2_img[i])||(incorrect2_img[i] ==='' && incorrect2_txt[i]==='')){
+			conti++
+		}else{
+		  alert('Url ou texto da pergunta'+(i+1)+'-resposta incorreta2 estão errados.')
+		}
 		 incorrect3_txt[i]=document.getElementById('resposta3-incorreta'+i)
 		 incorrect3_txt[i]= incorrect3_txt[i].value
 		 incorrect3_img[i]=document.getElementById('url3-incorreta'+i)
 		 incorrect3_img[i]= incorrect3_img[i].value
+		 if(regex.test(incorrect3_img[i])||(incorrect3_img[i] === '' && incorrect3_txt[i]=== '')){
+			conti++
+		}else{
+		  alert('Url ou texto da pergunta'+(i+1)+'-resposta incorreta3 estão errados.')
+		}
 		
 	}
-	if(conti === numerodeperguntas*3){
+	if(conti === numerodeperguntas*7){
 	
 
 	for(i=0;i<numerodeniveis;i++){
@@ -183,6 +212,8 @@ function criarniveis(){
 
 
 function finalizarquizz(){
+	let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+	let conti = 0
 	for(i=0;i<numerodeniveis;i++){
 		titulonivel[i]=document.getElementById('titulonivel'+i)
 		 titulonivel[i]=titulonivel[i].value
@@ -193,34 +224,54 @@ function finalizarquizz(){
 		}
 		 acertominimo[i]=document.getElementById('acertominimo'+i)
 		 acertominimo[i] = acertominimo[i].value
-		 if(acertominimo[i]>=0 && acertominimo[i]<=100 ){
+		 if(i===0){
+			if(acertominimo[i]==0){
+				conti++
+			}else{
+				alert('O primeiro acerto minimo deve ser zero')
+			}
+		 }else if(acertominimo[i]>=0 && acertominimo[i]<=100 ){
 			conti++
 		}else{
-			alert('% de acerto entre 0 e 100')
+			alert('% de acerto do nivel '+(i+1)+' deve estar entre 0 e 100')
 		}
 		 urlimgnivel[i]=document.getElementById('urlimgnivel'+i)
 		 urlimgnivel[i]=urlimgnivel[i].value
-		 console.log(urlimgnivel)
+		  if(regex.test(urlimgnivel[i])){
+			conti++
+		}else{
+		  alert('Url do nivel '+(i+1)+'esta errado.')
+		}
 		 descrinivel[i]=document.getElementById('descrinivel'+i)
 		 descrinivel[i]= descrinivel[i].value
 		 if(descrinivel[i].length >= 30){
 			conti++
 		}else{
-			alert('No minimo 30 caracteres')
+			alert('Descrição do nivel '+(i+1)+' com no minimo 30 caracteres')
 		}
 	}
-	cadastrarquizz()
-	gerarexemplo()
-    let niveis = document.querySelector('.criar-niveis')
-    niveis.classList.remove('exibir')
-    let finalizar = document.querySelector('.finalizar-quizz')
-    finalizar.classList.add('exibir')
+	if (conti === numerodeniveis*4 ){
+		cadastrarquizz()
+		print()
+		let niveis = document.querySelector('.criar-niveis')
+		niveis.classList.remove('exibir')
+		let finalizar = document.querySelector('.finalizar-quizz')
+		finalizar.classList.add('exibir')
+	}
+   
 }
 
 
 
 
+function IsUrl(url){
+    var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
+if(regex.test(url)){
+	alert('Url correta')
+}else{
+  alert('Url incorreta')
+}}
 
 
 
@@ -232,38 +283,34 @@ function cadastrarquizz(){
 	for(i=0; i<numerodeperguntas;i++){
 	
 
-		let addcorreta = `
-				{   
+		let addcorreta = `			{   
 					text: ${correct_txt[i]},
 					image: ${correct_img[i]},
 					isCorrectAnswer: true
-				}           
+				},           
 		`
 		respostas[i] = addcorreta
 		
 			if(incorrect1_txt[i] !== ''&& incorrect1_img[i]!==''){
-				let adderradas = `
-				{   
+				let adderradas = `			{   
 					text: ${incorrect1_txt[i]},
 					image: ${incorrect1_img[i]},
 					isCorrectAnswer: false
-				}           
+				},          
 		`
 		respostas[i] = respostas[i]+ adderradas
 			}
 			if(incorrect2_txt[i] !== ''&& incorrect2_img[i]!==''){
-				let adderradas2 = `
-				{   
+				let adderradas2 = `			{   
 					text: ${incorrect2_txt[i]},
 					image: ${incorrect2_img[i]},
 					isCorrectAnswer: false
-				}           
+				},          
 		`
 		respostas[i] = respostas[i]+ adderradas2
 			}
 			if(incorrect3_txt[i] !== ''&& incorrect3_img[i]!==''){
-				let adderradas3 = `
-				{   
+				let adderradas3 = `			{   
 					text: ${incorrect3_txt[i]},
 					image: ${incorrect3_img[i]},
 					isCorrectAnswer: false
@@ -273,8 +320,7 @@ function cadastrarquizz(){
 			}
 		
 	
-		let pergunta =`
-			{
+		let pergunta =`			{
 				title: ${txt_pergunta[i]},
 				color: ${color_pergunta[i]},
 				answers: [
@@ -286,13 +332,12 @@ function cadastrarquizz(){
 	}
 
 	for(i=0;i<numerodeniveis;i++){
-		let level=`
-		{
-			title:  ${titulonivel[i]},
-			image: ${urlimgnivel[i]},
-			text: ${descrinivel[i]},
-			minValue: ${acertominimo[i]}
-		},
+		let level=`			{
+				title:  ${titulonivel[i]},
+				image: ${urlimgnivel[i]},
+				text: ${descrinivel[i]},
+				minValue: ${acertominimo[i]}
+			},
 		`
 		leveis = leveis+level
 	}
@@ -300,25 +345,27 @@ function cadastrarquizz(){
 
 
 
+function print(){
 
-function gerarexemplo(){
-	let exemplo = `
- 
-	{
-	   title: ${titulodoquizz},
-	   image: ${urlimagemdoquizz},
-	   questions: [
-		   ${perguntas}
-	   ],
-	   levels: [
-		${leveis}
-	   ]
-   } `
-   
-   
-   console.log(exemplo)
-   
-   
-}
-				
+	let printer = `		{
+		title: ${titulodoquizz},
+		image: ${urlimagemdoquizz},
+		questions: [
+			${perguntas}
+		],
+		levels: [
+		 	${leveis}
+		]
+	}
+	`
+
+	let printar =axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes',printer)
+	console.log(printer)
+}	
+
+	
+	
+
+
+			
  
