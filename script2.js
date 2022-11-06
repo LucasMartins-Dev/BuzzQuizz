@@ -2,9 +2,14 @@ let score = 0;
 let d = 0;
 let numdeperg, container, acerto, totalperg, dataquiz, f;
 let j = 1;
-pegarQuiz();
-function pegarQuiz(){
-    const pegando = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/2");
+
+let id = 1;
+
+//localStorage.getItem(id);
+pegarQuiz(id);
+
+function pegarQuiz(idquiz){
+    const pegando = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idquiz}`);//${id
     pegando.then(exibirQuiz);
 }
 function exibirQuiz(quiz) {
@@ -55,7 +60,7 @@ function escolherResposta(certoerrado, respostaclickada) {
         //alert("voce respondeu todas as perguntas");
         acerto = score / numdeperg;
         acerto = Math.round(acerto * 100);
-        setTimeout(gerarResultados, 1000);
+        gerarResultados();
         
         
     } 
