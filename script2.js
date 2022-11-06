@@ -72,7 +72,7 @@ function reiniciarQuiz() {
     window.location.reload();
 }
 function voltarHome() {
-    alert("voltou pra home");
+    window.location.href = "listadequiz.html";
 }
 
 function gerarResultados() {
