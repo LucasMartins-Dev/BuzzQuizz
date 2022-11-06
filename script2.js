@@ -2,11 +2,9 @@ let score = 0;
 let d = 0;
 let numdeperg, container, acerto, totalperg, dataquiz, f;
 let j = 1;
+let id2 = localStorage.getItem('id');
 
-let id = 2;
-
-//localStorage.getItem(id);
-pegarQuiz(id);
+pegarQuiz(id2);
 
 function pegarQuiz(idquiz){
     const pegando = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idquiz}`);//${id

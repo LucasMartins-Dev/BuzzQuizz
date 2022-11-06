@@ -1,6 +1,4 @@
-let id;
-function redirecionar(idquevaiabrir){
-    id = idquevaiabrir;
-    localStorage.setItem(id);
-    
+function redirecionar(id){
+    localStorage.setItem('id', id);
+    window.location.href = "paginadoquiz.html";
 }
