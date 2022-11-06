@@ -8,16 +8,16 @@ let urlimagemdoquizz;
 let numerodeperguntas;
 let numerodeniveis;
 let txt_pergunta = []
-	let color_pergunta = []
-	let correct_txt = []
-	let correct_img = []
-	let incorrect1_txt = []
-	let incorrect1_img = []
-	let incorrect2_txt = []
-	let incorrect2_img = []
-	let incorrect3_txt = []
-	let incorrect3_img = []
-	let leveis=``
+let color_pergunta = []
+let correct_txt = []
+let correct_img = []
+let incorrect1_txt = []
+let incorrect1_img = []
+let incorrect2_txt = []
+let incorrect2_img = []
+let incorrect3_txt = []
+let incorrect3_img = []
+let leveis = []
 let titulolevel = []
 let imglevel = []
 let desclevel = []
@@ -26,7 +26,7 @@ let titulonivel = []
 let acertominimo = []
 let urlimgnivel = []
 let descrinivel = []
-let level;
+let level={}
 
 function criarperguntas(){
 	
@@ -94,7 +94,6 @@ for(let i=0; i<numerodeperguntas;i++){
   </div>
   
 </div>
-
 </div>
 `
 }
@@ -255,7 +254,17 @@ function finalizarquizz(){
 	}
 	if (conti === numerodeniveis*4 ){
 		cadastrarquizz()
-		
+		$('.quizz-finalizado').css({'background-image': 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 70%, #000000 100%),url('${urlimagemdoquizz}');'});
+		let finalizado = document.querySelector('.finalizar-quizz')
+		finalizado.innerHTML +=`
+		<div class="tittle">Seu quizz está pronto!</div>
+    <div class="quizz-finalizado">
+      <img src="${urlimagemdoquizz}">
+	  <h1>${titulodoquizz}</h1>
+  </div>
+    <div class="button">Acessar Quizz</div>
+    <a href="listadequiz.html"><h2>Voltar pra home</h2></a>
+	`
 		let niveis = document.querySelector('.criar-niveis')
 		niveis.classList.remove('exibir')
 		let finalizar = document.querySelector('.finalizar-quizz')
@@ -334,23 +343,15 @@ let auxi;
 	for(i=0;i<numerodeniveis;i++){
 		auxi = numerodeniveis-1;
 		if(auxi !== i){
-			level=`			{
-				title:  ${titulonivel[i]},
-				image: ${urlimgnivel[i]},
-				text: ${descrinivel[i]},
-				minValue: ${acertominimo[i]}
-			},
-		`
-		}else{
-			level=`			{
-				title:  ${titulonivel[i]},
-				image: ${urlimgnivel[i]},
-				text: ${descrinivel[i]},
-				minValue: ${acertominimo[i]}
-			}`
+			level={
+				title:  titulonivel[i],
+				image: urlimgnivel[i],
+				text: descrinivel[i],
+				minValue: acertominimo[i]
+			}
 		}
 		
-		leveis = leveis+level
+		leveis.push(level)
 	}
 
 }
@@ -363,30 +364,32 @@ let auxi;
 
 function impremi(){
 	console.log(titulodoquizz)
-	axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",{
+	let envio = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",{
 		title: titulodoquizz,
 		image: urlimagemdoquizz,
 		questions: perguntas,
-		levels: [
-			{
-				title: "Título do nível 1",
-				image: "https://http.cat/411.jpg",
-				text: "Descrição do nível 1",
-				minValue: 0
-			},
-			{
-				title: "Título do nível 2",
-				image: "https://http.cat/412.jpg",
-				text: "Descrição do nível 2",
-				minValue: 50
-			}
-		]
+		levels: leveis
 	})
+	envio.then(receberdoserver)
+}
+let responseserver = []
+let responser = []
+function receberdoserver(response){
+	const listaSerializada = localStorage.getItem("listasz"); // Pegando de volta a string armazenada na chave "lista"
+
+	if(listaSerializada!== null){
+		responseserver = JSON.parse(listaSerializada); // Transformando a string de volta na array original
+	console.log(response.data)
+responseserver.push(response.data)
+const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
+
+localStorage.setItem("listasz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
+	}else{
+		responseserver.push(response.data)
+const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
+
+localStorage.setItem("listasz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
+	}
+
 }
 
-	
-	
-
-
-			
- 

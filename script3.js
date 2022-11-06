@@ -13,7 +13,7 @@ function buscarQuizes() {
 }
 function carregarQuizes(quizes) {
     a = quizes.data;
-    for(let i = 0; i < 12; i++){
+    for(let i = 0; i < a.length; i++){
         todosquiz.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${a[i].id})"><p class="nomequiz">
         ${a[i].title}</p>
         <img class="imgquizes" src="${a[i].image}">
@@ -21,3 +21,4 @@ function carregarQuizes(quizes) {
     }
 
 }
+
