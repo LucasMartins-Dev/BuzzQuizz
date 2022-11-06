@@ -1,7 +1,8 @@
 let respostas =[]
 let texto = []
 let imagem = []
-let perguntas =``
+let perguntas =[]
+
 let titulodoquizz;
 let urlimagemdoquizz;
 let numerodeperguntas;
@@ -25,8 +26,10 @@ let titulonivel = []
 let acertominimo = []
 let urlimgnivel = []
 let descrinivel = []
+let level;
 
 function criarperguntas(){
+	
 	let cont = 0;
 	titulodoquizz = document.querySelector('.tituloquizz').value
 	if(titulodoquizz.length >= 20 && titulodoquizz.length <= 65){
@@ -107,8 +110,8 @@ per.innerHTML +=`
     pergunta.classList.add('exibir')
 	declararcor()
 }
-	
-	
+
+
 }
 function declararcor(){
 	for(i=0;i<numerodeperguntas;i++){
@@ -252,13 +255,13 @@ function finalizarquizz(){
 	}
 	if (conti === numerodeniveis*4 ){
 		cadastrarquizz()
-		print()
+		
 		let niveis = document.querySelector('.criar-niveis')
 		niveis.classList.remove('exibir')
 		let finalizar = document.querySelector('.finalizar-quizz')
 		finalizar.classList.add('exibir')
 	}
-   
+	impremi()
 }
 
 
@@ -278,90 +281,108 @@ if(regex.test(url)){
 
 
 function cadastrarquizz(){
+	let aux;
 	
-
 	for(i=0; i<numerodeperguntas;i++){
-	
+		let answers = []
+		let pergunta = {}
+	aux = numerodeperguntas - 1 ;
+	console.log(aux)
 
-		let addcorreta = `			{   
-					text: ${correct_txt[i]},
-					image: ${correct_img[i]},
-					isCorrectAnswer: true
-				},           
-		`
-		respostas[i] = addcorreta
 		
-			if(incorrect1_txt[i] !== ''&& incorrect1_img[i]!==''){
-				let adderradas = `			{   
-					text: ${incorrect1_txt[i]},
-					image: ${incorrect1_img[i]},
-					isCorrectAnswer: false
-				},          
-		`
-		respostas[i] = respostas[i]+ adderradas
-			}
+		answers.push({   
+			text: correct_txt[i],
+			image: correct_img[i],
+			isCorrectAnswer: true
+		})
+		answers.push({   
+			text: incorrect1_txt[i],
+			image: incorrect1_img[i],
+			isCorrectAnswer: false
+		})
+		
+			
 			if(incorrect2_txt[i] !== ''&& incorrect2_img[i]!==''){
-				let adderradas2 = `			{   
-					text: ${incorrect2_txt[i]},
-					image: ${incorrect2_img[i]},
-					isCorrectAnswer: false
-				},          
-		`
-		respostas[i] = respostas[i]+ adderradas2
+			answers.push({   
+			text: incorrect2_txt[i],
+			image: incorrect2_img[i],
+			isCorrectAnswer: false
+				})
+		
 			}
 			if(incorrect3_txt[i] !== ''&& incorrect3_img[i]!==''){
-				let adderradas3 = `			{   
-					text: ${incorrect3_txt[i]},
-					image: ${incorrect3_img[i]},
+				answers.push({   
+					text: incorrect3_txt[i],
+					image: incorrect3_img[i],
 					isCorrectAnswer: false
-				}           
-		`
-		respostas[i] = respostas[i]+ adderradas3
+				})
+		
 			}
 		
+			
+		
 	
-		let pergunta =`			{
-				title: ${txt_pergunta[i]},
-				color: ${color_pergunta[i]},
-				answers: [
-					${respostas[i]} 
-				]
-			},
-	`
-	perguntas = perguntas + pergunta
+		  pergunta = {
+			title: txt_pergunta[i],
+			color: color_pergunta[i],
+			answers: answers
+		}
+		
+	perguntas.push(pergunta)
 	}
-
+let auxi;
 	for(i=0;i<numerodeniveis;i++){
-		let level=`			{
+		auxi = numerodeniveis-1;
+		if(auxi !== i){
+			level=`			{
 				title:  ${titulonivel[i]},
 				image: ${urlimgnivel[i]},
 				text: ${descrinivel[i]},
 				minValue: ${acertominimo[i]}
 			},
 		`
+		}else{
+			level=`			{
+				title:  ${titulonivel[i]},
+				image: ${urlimgnivel[i]},
+				text: ${descrinivel[i]},
+				minValue: ${acertominimo[i]}
+			}`
+		}
+		
 		leveis = leveis+level
 	}
+
 }
 
 
 
-function print(){
 
-	let printer = `		{
-		title: ${titulodoquizz},
-		image: ${urlimagemdoquizz},
-		questions: [
-			${perguntas}
-		],
+
+
+
+function impremi(){
+	console.log(titulodoquizz)
+	axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",{
+		title: titulodoquizz,
+		image: urlimagemdoquizz,
+		questions: perguntas,
 		levels: [
-		 	${leveis}
+			{
+				title: "Título do nível 1",
+				image: "https://http.cat/411.jpg",
+				text: "Descrição do nível 1",
+				minValue: 0
+			},
+			{
+				title: "Título do nível 2",
+				image: "https://http.cat/412.jpg",
+				text: "Descrição do nível 2",
+				minValue: 50
+			}
 		]
-	}
-	`
-
-	let printar =axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes',printer)
-	console.log(printer)
-}	
+	})
+}
 
 	
 	
