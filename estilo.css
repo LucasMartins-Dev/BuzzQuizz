@@ -63,6 +63,7 @@ font-family: 'Roboto',sans-serif;
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 70%, #000000 100%),url(imagem.jpeg);
 }
 .quiz-02{
+    position: relative;
     width: 340px;
     height: 181px;
 
@@ -79,11 +80,21 @@ font-family: 'Roboto',sans-serif;
     padding-left: 18px;
     padding-right: 21px;
     box-sizing: border-box;
+    overflow: hidden;
     
 }
 .imgquizes {
-    width: 340px;
-    height: 181px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.nomequiz {
+    position: absolute;
+    bottom: 30px;
+    left: 4px;
+    z-index: 10;
+    max-width: 300px;
+    line-break: normal;
 }
 a{
     text-decoration: none;
