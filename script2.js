@@ -3,7 +3,7 @@ let d = 0;
 let numdeperg, container, acerto, totalperg, dataquiz, f;
 let j = 1;
 
-let id = 1;
+let id = 2;
 
 //localStorage.getItem(id);
 pegarQuiz(id);
@@ -15,7 +15,7 @@ function pegarQuiz(idquiz){
 function exibirQuiz(quiz) {
     console.log(quiz.data);
     container = document.querySelector(".containerquiz");
-    container.innerHTML += `<img src="${quiz.data.image}" class="mainimgquiz">`;
+    container.innerHTML += `<div class="imagemetituloquiz"><img src="${quiz.data.image}" class="mainimgquiz"><p class="tituloquiz">${quiz.data.title}</p></div>`;
     numdeperg = quiz.data.questions.length;
     dataquiz = quiz.data;
     
