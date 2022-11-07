@@ -378,7 +378,7 @@ responser.push(response.data)
 		
 		
 	
-	const listaSerializada = localStorage.getItem("listaquizz"); // Pegando de volta a string armazenada na chave "lista"
+	const listaSerializada = localStorage.getItem("listasquizz"); // Pegando de volta a string armazenada na chave "lista"
 
 	if(listaSerializada!== null){
 		responseserver = JSON.parse(listaSerializada); // Transformando a string de volta na array original
@@ -392,7 +392,7 @@ localStorage.setItem("listaquizz", exemploSerializado); // Armazenando a string 
 		responseserver.push(response.data)
 const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
 
-localStorage.setItem("listaquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
+localStorage.setItem("listasquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
 	}
 	
 }

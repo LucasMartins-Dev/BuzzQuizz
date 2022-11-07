@@ -1,6 +1,6 @@
 let todosquiz = document.querySelector(".quizesserver");
 let a;
-let quizescriadosz = localStorage.getItem('listaquizz');
+let quizescriadosz = localStorage.getItem('listasquizz');
 let quizescriados = JSON.parse(quizescriadosz)
 let meusquizes = document.querySelector(".meusquizes");
 buscarQuizes();
