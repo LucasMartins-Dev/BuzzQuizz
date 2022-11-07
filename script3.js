@@ -1,6 +1,7 @@
 let todosquiz = document.querySelector(".quizesserver");
 let a;
-let quizescriados = localStorage.getItem('idlocal');
+let quizescriadosz = localStorage.getItem('listasz');
+let quizescriados = JSON.parse(quizescriadosz)
 let meusquizes = document.querySelector(".meusquizes");
 buscarQuizes();
 carregarMeusquizes();
@@ -27,13 +28,16 @@ function carregarQuizes(quizes) {
 
 function carregarMeusquizes() {
     if (quizescriados === null){
-        meusquizes.innerHTML += "Você não criou nenhum quiz."
+       let mq = document.querySelector('.tituloseus')
+       mq.classList.remove('aparece')
+       let smq = document.querySelector('.semquizz')
+       smq.classList.add('aparece')
     }
     else{
-    for(let i = 0; i < meusquizes.length; i++){
-        meusquizes.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${meusquizes[i].id})"><p class="nomequiz">
-        ${meusquizes[i].title}</p>
-        <img class="imgquizes" src="${meusquizes[i].image}">
+    for(let i = 0; i < quizescriados.length; i++){
+        meusquizes.innerHTML +=  `<div class="quiz-01" onclick="redirecionar(${quizescriados[i].id})"><p class="nomequiz">
+        ${quizescriados[i].title}</p>
+        <img class="imgquizes" src="${quizescriados[i].image}">
     </div>`;
     }
 }
