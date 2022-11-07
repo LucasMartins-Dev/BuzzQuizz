@@ -255,26 +255,9 @@ function finalizarquizz(){
 	if (conti === numerodeniveis*4 ){
 		cadastrarquizz()
 		impremi()
-		finalização()
+	
 	}
 	
-}
-setTimeout(finalização,5000)
-function finalização(){
-	let finalizado = document.querySelector('.finalizar-quizz')
-		finalizado.innerHTML +=`
-		<div class="tittle">Seu quizz está pronto!</div>
-		<div class="quiz-02"><p class="nomequiz">
-        ${responser[0].title}</p>
-        <img class="imgquizes" src="${responser[0].image}">
-    </div>
-    <div class="button"onclick="redirecionar(${responser[0].id})">Acessar Quizz</div>
-    <a href="index.html"><h2>Voltar pra home</h2></a>
-	`
-		let niveis = document.querySelector('.criar-niveis')
-		niveis.classList.remove('exibir')
-		let finalizar = document.querySelector('.finalizar-quizz')
-		finalizar.classList.add('exibir')
 }
 
 
@@ -377,7 +360,7 @@ function impremi(){
 let responseserver = []
 let responser = []
 function receberdoserver(response){
-	const listaSerializada = localStorage.getItem("listasz"); // Pegando de volta a string armazenada na chave "lista"
+	const listaSerializada = localStorage.getItem("listaquizz"); // Pegando de volta a string armazenada na chave "lista"
 
 	if(listaSerializada!== null){
 		responseserver = JSON.parse(listaSerializada); // Transformando a string de volta na array original
@@ -386,14 +369,27 @@ function receberdoserver(response){
 responseserver.push(response.data)
 const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
 
-localStorage.setItem("listasz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
+localStorage.setItem("listaquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
 	}else{
 		responseserver.push(response.data)
 const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
 
-localStorage.setItem("listasz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
+localStorage.setItem("listaquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
 	}
-
+	let finalizado = document.querySelector('.finalizar-quizz')
+		finalizado.innerHTML +=`
+		<div class="tittle">Seu quizz está pronto!</div>
+		<div class="quiz-02"><p class="nomequiz">
+        ${responser[0].title}</p>
+        <img class="imgquizes" src="${responser[0].image}">
+    </div>
+    <div class="button"onclick="redirecionar(${responser[0].id})">Acessar Quizz</div>
+    <a href="index.html"><h2>Voltar pra home</h2></a>
+	`
+		let niveis = document.querySelector('.criar-niveis')
+		niveis.classList.remove('exibir')
+		let finalizar = document.querySelector('.finalizar-quizz')
+		finalizar.classList.add('exibir')
 }
 
 function redirecionar(id){
