@@ -26,10 +26,15 @@ function carregarQuizes(quizes) {
 }
 
 function carregarMeusquizes() {
+    if (quizescriados === null){
+        meusquizes.innerHTML += "Você não criou nenhum quiz."
+    }
+    else{
     for(let i = 0; i < meusquizes.length; i++){
-        todosquiz.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${meusquizes[i].id})"><p class="nomequiz">
+        meusquizes.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${meusquizes[i].id})"><p class="nomequiz">
         ${meusquizes[i].title}</p>
         <img class="imgquizes" src="${meusquizes[i].image}">
     </div>`;
     }
+}
 }
