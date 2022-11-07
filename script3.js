@@ -35,7 +35,7 @@ function carregarMeusquizes() {
     }
     else{
     for(let i = 0; i < quizescriados.length; i++){
-        meusquizes.innerHTML +=  `<div class="quiz-01" onclick="redirecionar(${quizescriados[i].id})"><p class="nomequiz">
+        meusquizes.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${quizescriados[i].id})"><p class="nomequiz">
         ${quizescriados[i].title}</p>
         <img class="imgquizes" src="${quizescriados[i].image}">
     </div>`;

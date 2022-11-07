@@ -75,6 +75,8 @@ function escolherResposta(certoerrado, respostaclickada) {
     
 }
 }
+
+
 function reiniciarQuiz() {
     window.location.reload();
 }
