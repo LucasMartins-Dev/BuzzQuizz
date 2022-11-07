@@ -253,6 +253,7 @@ function finalizarquizz(){
 		}
 	}
 	if (conti === numerodeniveis*4 ){
+
 		cadastrarquizz()
 		impremi()
 	
@@ -358,12 +359,31 @@ function impremi(){
 let responseserver = []
 let responser = []
 function receberdoserver(response){
+responser.push(response.data)
+		
+			let finalizado = document.querySelector('.finalizar-quizz')
+			finalizado.innerHTML +=`
+			<div class="tittle">Seu quizz está pronto!</div>
+			<div class="quiz-02"><p class="nomequiz">
+			${titulodoquizz}</p>
+			<img class="imgquizes" src="${urlimagemdoquizz}">
+		</div>
+		<div class="button"onclick="redirecionar(${responser[0].id})">Acessar Quizz</div>
+		<a href="index.html"><h2>Voltar pra home</h2></a>
+		`
+			let niveis = document.querySelector('.criar-niveis')
+			niveis.classList.remove('exibir')
+			let finalizar = document.querySelector('.finalizar-quizz')
+			finalizar.classList.add('exibir')
+		
+		
+	
 	const listaSerializada = localStorage.getItem("listaquizz"); // Pegando de volta a string armazenada na chave "lista"
 
 	if(listaSerializada!== null){
 		responseserver = JSON.parse(listaSerializada); // Transformando a string de volta na array original
 	console.log(response.data)
-	responser.push(response.data)
+	
 responseserver.push(response.data)
 const exemploSerializado = JSON.stringify(responseserver); // Array convertida pra uma string
 
@@ -374,20 +394,7 @@ const exemploSerializado = JSON.stringify(responseserver); // Array convertida p
 
 localStorage.setItem("listaquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
 	}
-	let finalizado = document.querySelector('.finalizar-quizz')
-		finalizado.innerHTML +=`
-		<div class="tittle">Seu quizz está pronto!</div>
-		<div class="quiz-02"><p class="nomequiz">
-        ${responser[0].title}</p>
-        <img class="imgquizes" src="${responser[0].image}">
-    </div>
-    <div class="button"onclick="redirecionar(${responser[0].id})">Acessar Quizz</div>
-    <a href="index.html"><h2>Voltar pra home</h2></a>
-	`
-		let niveis = document.querySelector('.criar-niveis')
-		niveis.classList.remove('exibir')
-		let finalizar = document.querySelector('.finalizar-quizz')
-		finalizar.classList.add('exibir')
+	
 }
 
 function redirecionar(id){
