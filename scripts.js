@@ -370,13 +370,14 @@ function impremi(){
 		questions: perguntas,
 		levels: leveis
 	})
-	envio.then(receberdoserver)
+	envio.then(receberdoserver);
 }
 let responseserver = []
 let responser = []
 function receberdoserver(response){
 	const listaSerializada = localStorage.getItem("listasz"); // Pegando de volta a string armazenada na chave "lista"
-
+	let datadoquiz = responde.data;
+	localStorage.setItem('idlocal', datadoquiz);
 	if(listaSerializada!== null){
 		responseserver = JSON.parse(listaSerializada); // Transformando a string de volta na array original
 	console.log(response.data)

@@ -1,7 +1,9 @@
 let todosquiz = document.querySelector(".quizesserver");
 let a;
+let quizescriados = localStorage.getItem('idlocal');
+let meusquizes = document.querySelector(".meusquizes");
 buscarQuizes();
-
+carregarMeusquizes();
 function redirecionar(id){
     localStorage.setItem('id', id);
     window.location.href = "paginadoquiz.html";
@@ -11,6 +13,7 @@ function buscarQuizes() {
     pegando.then(carregarQuizes);
 
 }
+
 function carregarQuizes(quizes) {
     a = quizes.data;
     for(let i = 0; i < a.length; i++){
@@ -22,3 +25,11 @@ function carregarQuizes(quizes) {
 
 }
 
+function carregarMeusquizes() {
+    for(let i = 0; i < meusquizes.length; i++){
+        todosquiz.innerHTML +=  `<div class="quiz-02" onclick="redirecionar(${meusquizes[i].id})"><p class="nomequiz">
+        ${meusquizes[i].title}</p>
+        <img class="imgquizes" src="${meusquizes[i].image}">
+    </div>`;
+    }
+}
