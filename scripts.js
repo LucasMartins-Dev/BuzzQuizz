@@ -324,17 +324,15 @@ function cadastrarquizz(){
 		
 	perguntas.push(pergunta)
 	}
-let auxi;
+
 	for(i=0;i<numerodeniveis;i++){
-		auxi = numerodeniveis-1;
-		if(auxi !== i){
 			level={
 				title:  titulonivel[i],
 				image: urlimgnivel[i],
 				text: descrinivel[i],
 				minValue: acertominimo[i]
 			}
-		}
+		
 		
 		leveis.push(level)
 	}

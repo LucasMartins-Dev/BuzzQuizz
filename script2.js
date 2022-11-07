@@ -88,9 +88,9 @@ function gerarResultados() {
     console.log(acerto);
     console.log(dataquiz.levels.length);
     
-    for (let i = 1; i < dataquiz.levels.length; i++) {
+    for (let i = 0; i < dataquiz.levels.length; i++) {
         if (acerto >= dataquiz.levels[i].minValue) {
-            d++;
+            d = i;
             
         }
     }
