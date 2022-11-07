@@ -269,7 +269,7 @@ function finalização(){
         <img class="imgquizes" src="${responser[0].image}">
     </div>
     <div class="button"onclick="redirecionar(${responser[0].id})">Acessar Quizz</div>
-    <a href="listadequiz.html"><h2>Voltar pra home</h2></a>
+    <a href="index.html"><h2>Voltar pra home</h2></a>
 	`
 		let niveis = document.querySelector('.criar-niveis')
 		niveis.classList.remove('exibir')

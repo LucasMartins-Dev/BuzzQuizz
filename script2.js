@@ -17,22 +17,29 @@ function exibirQuiz(quiz) {
     numdeperg = quiz.data.questions.length;
     dataquiz = quiz.data;
     
-
+    
     for(let b = 0; b < quiz.data.questions.length ; b++) {
+        let questionss= []
     container.innerHTML += `
     <div class="pergunta">
     <div class="textopergunta" style="background-color:${quiz.data.questions[b].color}">
     <p>${quiz.data.questions[b].title}</p>
     </div><div class="todasrespostas" id="${b}">
     </div></div>`;
+    for(let i = 0; i < quiz.data.questions[b].answers.length ; i++){
+        questionss.push(quiz.data.questions[b].answers[i])
+        questionss.sort(()=> Math.random() - 0.5);
+    }   
         for(let i = 0; i < quiz.data.questions[b].answers.length ; i++){ 
+            
             let perguntas = document.getElementById(b);
             perguntas.innerHTML += `
-            <div class="respostas p${quiz.data.questions[b].answers[i].isCorrectAnswer}" onclick="escolherResposta(${quiz.data.questions[b].answers[i].isCorrectAnswer}, this)">
-            <img src="${quiz.data.questions[b].answers[i].image}" class="imagemdasresp">
-            <p class=""> ${quiz.data.questions[b].answers[i].text} </p>
+            <div class="respostas p${questionss[i].isCorrectAnswer}" onclick="escolherResposta(${questionss[i].isCorrectAnswer}, this)">
+            <img src="${questionss[i].image}" class="imagemdasresp">
+            <p class=""> ${questionss[i].text} </p>
             </div>
             `;
+            
     }
     for(let a = 0; a < quiz.data.levels.length ; a++){}
  }
@@ -72,7 +79,7 @@ function reiniciarQuiz() {
     window.location.reload();
 }
 function voltarHome() {
-    window.location.href = "listadequiz.html";
+    window.location.href = "index.html";
 }
 
 function gerarResultados() {
